@@ -263,13 +263,6 @@
       return sessionOf(live);
     },
 
-    async google() {
-      if (!firebaseReady()) throw new Error("Google login butuh Firebase. Isi js/config.js dulu.");
-      const provider = new firebase.auth.GoogleAuthProvider();
-      await initFirebase().signInWithPopup(provider);
-      return Auth.currentUser();
-    },
-
     async forgot(email) {
       email = (email || "").trim().toLowerCase();
       if (firebaseReady()) {

@@ -9,7 +9,7 @@ Banner: `assets/banner/nailong-banner.mp4` (the video you supplied). It autoplay
 
 - Login / Register / Forgot password UI
 - Local account store (works immediately in the browser)
-- Firebase Auth hook (Email + Google) when you add config
+- Firebase Auth hook (username / email) when you add config
 - Post-login animation
 - Dashboard with **one** looping video banner
 - Search, categories, favorites, history, profile, settings, admin view
@@ -56,7 +56,7 @@ nailong-tools/
 ## Run on phone (Acode) or computer
 
 1. Open the `nailong-tools` folder.
-2. Serve it with any static server. Opening `index.html` as a file also works for most tools, but login Google / PWA / AI need HTTPS hosting.
+2. Serve it with any static server. Opening `index.html` as a file also works for most tools, but PWA / AI need HTTPS hosting.
 
 Simple local server:
 
@@ -92,7 +92,7 @@ To replace later, overwrite that file only. Do not add a second video.
 ## Firebase setup
 
 1. Create a Firebase project.
-2. Enable **Authentication → Email/Password** and **Google**.
+2. Enable **Authentication → Email/Password**.
 3. Create a Firestore database (production mode).
 4. Paste config into `js/config.js`:
 
@@ -105,7 +105,7 @@ firebaseConfig: { apiKey, authDomain, projectId, storageBucket, messagingSenderI
 6. Add your admin email to `adminEmails` in `js/config.js`.
 7. Optional stronger admin: set a Firebase Auth custom claim `{ "admin": true }` with Admin SDK.
 
-Until `firebaseEnabled` is true and the key is real, the app uses a **local browser account**. That is a real local login (password hashed with SHA-256), not a fake button. Google login and email reset need Firebase.
+Until `firebaseEnabled` is true and the key is real, the app uses a **local browser account**. That is a real local login (password hashed with SHA-256), not a fake button.
 
 ## Firestore user document (suggested)
 

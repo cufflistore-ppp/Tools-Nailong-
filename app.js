@@ -60,20 +60,12 @@
       <div class="field"><label>Password</label><input id="pass" type="password" autocomplete="current-password"></div>
       <div class="auth-links"><button class="btn-link" data-go="forgot">Forgot password?</button><button class="btn-link" data-go="register">Create account</button></div>
       <button class="btn btn-primary" id="doLogin">Login</button>
-      <button class="btn btn-ghost" id="doGoogle"><i class="fa-brands fa-google"></i> Login with Google</button>
-      <p class="sub" style="margin-top:14px">Auth mode: ${NTAuth.mode() === "firebase" ? "Firebase" : "Local browser profile (add Firebase config to enable Google & email reset)"}</p>
+      <p class="sub" style="margin-top:14px">Masuk pakai username dan password.</p>
     `);
     $("#doLogin").onclick = async () => {
       try {
         showMsg("Signing in...", "info");
         await NTAuth.login({ username: $("#email").value, email: $("#email").value, password: $("#pass").value });
-        await playBoot();
-        go("home");
-      } catch (e) { showMsg(e.message || String(e), "err"); }
-    };
-    $("#doGoogle").onclick = async () => {
-      try {
-        await NTAuth.google();
         await playBoot();
         go("home");
       } catch (e) { showMsg(e.message || String(e), "err"); }
@@ -90,7 +82,6 @@
       <div class="field"><label>Password</label><input id="pass" type="password" autocomplete="new-password"></div>
       <div class="field"><label>Confirm password</label><input id="pass2" type="password" autocomplete="new-password"></div>
       <button class="btn btn-primary" id="doReg">Create account</button>
-      <button class="btn btn-ghost" id="doGoogle"><i class="fa-brands fa-google"></i> Login with Google</button>
       <p class="sub" style="margin-top:12px">Already have an account? <button class="btn-link" data-go="login">Login</button></p>
     `);
     $("#doReg").onclick = async () => {
@@ -101,10 +92,6 @@
         await playBoot();
         go("home");
       } catch (e) { showMsg(e.message || String(e), "err"); }
-    };
-    $("#doGoogle").onclick = async () => {
-      try { await NTAuth.google(); await playBoot(); go("home"); }
-      catch (e) { showMsg(e.message || String(e), "err"); }
     };
   }
 
