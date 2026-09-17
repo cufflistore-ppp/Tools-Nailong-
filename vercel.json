@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/tools/:id", "destination": "/index.html" },
+    { "source": "/((?!api/|assets/|css/|js/|firebase/).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+    }
+  ]
+}
