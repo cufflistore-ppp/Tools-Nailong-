@@ -2,7 +2,7 @@
 window.NT_REGISTRY = {
   "version": "148.027.00",
   "generated": true,
-  "count": 257,
+  "count": 265,
   "categories": [
     "Image Tools",
     "PDF Tools",
@@ -2945,5 +2945,14 @@ window.NT_REGISTRY = {
     {"id":"world-clock","name":"World Clock","category":"Date & Time","description":"Jam beberapa kota.","kind":"world-clock","icon":"fa-solid fa-earth-asia","popular":false,"newest":true,"premium":false,"keywords":"jam dunia wib"},
     {"id":"percent-calc","name":"Percent Calculator","category":"Calculator","description":"Hitung persen dan diskon.","kind":"percent","icon":"fa-solid fa-percent","popular":true,"newest":true,"premium":false,"keywords":"diskon persen"},
     {"id":"ip-lookup","name":"IP Lookup","category":"Developer Tools","description":"Cek negara dari IP publik.","kind":"ip-lookup","icon":"fa-solid fa-network-wired","popular":false,"newest":true,"premium":false,"keywords":"ip negara"}
+      ,
+    {"id":"brat-generator","name":"Brat Generator","category":"Design Tools","description":"Buat poster tulisan besar style Brat.","kind":"brat","icon":"fa-solid fa-font","popular":true,"newest":true,"premium":false,"keywords":"brat poster"},
+    {"id":"iqc-generator","name":"IQC Generator","category":"Design Tools","description":"Buat kartu foto + nama + quote.","kind":"iqc","icon":"fa-solid fa-id-card","popular":true,"newest":true,"premium":false,"keywords":"iqc kartu"},
+    {"id":"sertifikat-kocak","name":"Sertifikat Tolol","category":"Design Tools","description":"Sertifikat iseng dari nama, untuk guyonan.","kind":"sertifikat","icon":"fa-solid fa-award","popular":true,"newest":true,"premium":false,"keywords":"sertifikat tolol meme"},
+    {"id":"fake-dev","name":"FakeDev Card","category":"Design Tools","description":"Kartu profil developer iseng dari nama dan bio.","kind":"fakedev","icon":"fa-solid fa-user-gear","popular":true,"newest":true,"premium":false,"keywords":"dev profile"},
+    {"id":"fake-lobby","name":"Kartu Lobby Game","category":"Design Tools","description":"Kartu iseng FF/ML/PUBG/FC. Bukan lobby asli.","kind":"lobby","icon":"fa-solid fa-gamepad","popular":true,"newest":true,"premium":false,"keywords":"lobby ff ml pubg"},
+    {"id":"tanya-ustadz","name":"Tanya Pak Ustadz","category":"Utility","description":"Jawaban singkat iseng untuk pertanyaan harian.","kind":"ustadz","icon":"fa-solid fa-comments","popular":true,"newest":true,"premium":false,"keywords":"tanya ustadz meme"},
+    {"id":"virus-scan","name":"Cek Tautan / File","category":"Security & Generator","description":"Cek dasar URL, domain, file, hash, atau IP. Bukan antivirus penuh.","kind":"virus-scan","icon":"fa-solid fa-shield-halved","popular":true,"newest":true,"premium":false,"keywords":"virus scan url hash ip"},
+    {"id":"remove-bg","name":"Hapus Background","category":"Image Tools","description":"Hapus background polos pada foto (warna sudut).","kind":"remove-bg","icon":"fa-solid fa-eraser","popular":true,"newest":true,"premium":false,"keywords":"hapus background"}
   ]
 };
