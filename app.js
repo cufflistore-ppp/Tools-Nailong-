@@ -240,8 +240,9 @@
     const html = `
       <section class="banner" id="bannerBox">
         <video id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="metadata"
-          poster="assets/banner/poster.jpg" disablepictureinpicture>
-          <source src="assets/banner/nailong-banner.mp4" type="video/mp4">
+          poster="assets/poster.jpg" disablepictureinpicture>
+          <source src="assets/nailong-banner.mp4" type="video/mp4">
+          <source src="assets/1000079216.mp4" type="video/mp4">
         </video>
         <div class="overlay"></div>
         <div class="caption">
@@ -1216,7 +1217,7 @@
     sh.className = "sheet";
     sh.innerHTML = `<h3>Menu</h3>
       <div class="sheet-item" data-go="bug"><i class="fa-solid fa-bug"></i>Lapor bug</div>
-      <div class="sheet-item" data-go="apk"><i class="fa-solid fa-download"></i>Download APK NAILONG TOOLS</div>
+      <div class="sheet-item" data-go="apk"><i class="fa-solid fa-mobile-screen"></i>Pasang ke HP (nanti APK)</div>
       <a class="sheet-item" href="${escapeHtml(NT_CONFIG.whatsappChannel)}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>Saluran WhatsApp resmi</a>
       <div class="sheet-item" data-go="profile"><i class="fa-solid fa-user"></i>Saya</div>
       <div class="sheet-item" data-go="upgrade"><i class="fa-solid fa-crown"></i>Upgrade VIP</div>
@@ -1298,7 +1299,7 @@
     app.innerHTML = shell(`<div class="tool-page">
       <h2>${escapeHtml(plan.name)}</h2>
       <div class="panel">
-        <p>Transfer <b>${escapeHtml(plan.label)}</b> ke QRIS di bawah. Ganti file <code>assets/qris/qris.png</code> dengan QRIS aslimu.</p>
+        <p>Transfer <b>${escapeHtml(plan.label)}</b> ke QRIS di bawah. Ganti file <code>assets/qris.jpg</code> dengan QRIS aslimu.</p>
         <img class="qris" src="${escapeHtml(NT_CONFIG.qrisImage)}" alt="QRIS NAILONG TOOLS">
         <div class="field"><label>Username akun ini</label><input id="payUser" value="${escapeHtml(USER.username||USER.name)}" readonly></div>
         <div class="field"><label>Bukti transfer (foto)</label><input id="payFile" type="file" accept="image/*"></div>
@@ -1344,9 +1345,8 @@
   function viewApk() {
     app.innerHTML = shell(`<div class="tool-page"><h2>Download APK NAILONG TOOLS</h2>
       <div class="panel">
-        <p>Letakkan file APK di <code>assets/app/nailong-tools.apk</code> lalu tombol unduh akan memakai file itu.</p>
-        <a class="btn btn-primary" style="display:inline-block;width:auto;padding:12px 18px" href="${escapeHtml(NT_CONFIG.apkUrl)}" download>Download APK</a>
-        <p class="sub" style="margin-top:12px">Sambil APK belum ada, pasang website ini sebagai aplikasi lewat menu Chrome → Add to Home screen / Install app.</p>
+        <p>Sekarang fokus ke website dulu. APK dibuat setelah tampilan website sudah sesuai.</p>
+        <p class="sub">Sementara ini bisa pasang website ke HP lewat Chrome → Add to Home screen / Install app.</p>
       </div></div>`);
     bindShell();
   }

@@ -1,0 +1,13 @@
+NAILONG TOOLS v148.027.00
+
+Isi cuma 3 folder:
+
+1. website  = semua kode (js, css, halaman)
+2. assets   = video, QRIS, icon
+3. bantuan  = catatan
+
+Yang di-upload ke Vercel: SELURUH folder NAILONG-TOOLS.
+Yang dibuka di HP/laptop: file index.html yang di luar folder.
+
+Jangan pindah-pindah file antar folder.
+Jangan rename file di assets.

@@ -18,8 +18,8 @@ window.NT_CONFIG = {
   /* Official links — ganti dengan data aslimu */
   whatsappChannel: "https://whatsapp.com/channel/YOUR_CHANNEL",
   whatsappAdmin: "https://wa.me/62XXXXXXXXXXX",
-  apkUrl: "assets/app/nailong-tools.apk",
-  qrisImage: "assets/qris/qris.jpg",
+  apkUrl: "assets/nailong-tools.apk",
+  qrisImage: "assets/qris.jpg",
 
   /* Owner / admin login (bisa diganti) */
   owner: {
