@@ -103,7 +103,7 @@ img,video{max-width:100%}
 
 .section-h{display:flex;align-items:center;justify-content:space-between;margin:8px 0 12px}
 .section-h h3{margin:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:8px;min-height:150px;transition:.2s transform,.2s border-color,.2s box-shadow}
 .card:hover{transform:translateY(-3px);border-color:#3a3c46;box-shadow:0 10px 30px rgba(0,0,0,.25),0 0 0 1px rgba(255,208,0,.08)}
 .card .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg,#221e10,#1a160c);color:var(--yellow)}
@@ -206,3 +206,32 @@ footer.site .fgrid{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:8px}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes slidein{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+
+.card.tool-box{align-items:center;text-align:center;min-height:150px;padding:18px 10px 14px;position:relative;cursor:pointer}
+.card.tool-box .ico{width:58px;height:58px;border-radius:16px;margin:4px auto 10px;font-size:22px;background:linear-gradient(180deg,#2a220c,#17140b);color:var(--yellow);box-shadow:0 0 18px rgba(255,208,0,.12)}
+.card.tool-box h4{margin:0;font-size:13px;line-height:1.25;color:#ffd24a;font-weight:800}
+.card.tool-box .fav{position:absolute;top:8px;right:8px;font-size:14px}
+.banner .overlay{background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35))}
+.banner video{background:#111}
+@media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.nt-music{display:flex;align-items:center;gap:8px;background:#16120a;border:1px solid #3a3118;border-radius:999px;padding:6px 8px 6px 12px;min-width:min(420px,48vw);box-shadow:0 0 18px rgba(255,208,0,.12)}
+.nt-music b{display:block;color:#ffd000;font-size:12px;line-height:1.1;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nt-music small{display:block;color:#b9a56a;font-size:9px;letter-spacing:.08em}
+.nt-music button{width:30px;height:30px;border:0;border-radius:50%;background:#241c0c;color:#ffd000;cursor:pointer}
+.nt-music button:hover{filter:brightness(1.15)}
+.nt-music #ntPlay{background:linear-gradient(135deg,#ffd000,#ff7a18);color:#111}
+.nt-music .eq{display:flex;gap:2px;align-items:flex-end;height:16px}
+.nt-music .eq i{width:3px;background:#ffd000;display:block;height:6px;border-radius:2px;animation:eq 0.8s ease-in-out infinite}
+.nt-music .eq i:nth-child(2){animation-delay:.1s}
+.nt-music .eq i:nth-child(3){animation-delay:.2s}
+.nt-music .eq i:nth-child(4){animation-delay:.3s}
+.nt-music.playing .eq i{animation-play-state:running}
+.nt-music:not(.playing) .eq i{animation:none;height:5px}
+.nt-music-mini{width:40px;height:40px;border-radius:12px;border:1px solid #3a3118;background:#16120a;color:#ffd000;cursor:pointer}
+@keyframes eq{0%,100%{height:5px}50%{height:16px}}
+@media (max-width:900px){
+  .nt-music{min-width:0;padding:6px}
+  .nt-music-meta,.search-mini{display:none}
+}

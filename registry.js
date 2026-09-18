@@ -2,7 +2,7 @@
 window.NT_REGISTRY = {
   "version": "148.027.00",
   "generated": true,
-  "count": 242,
+  "count": 257,
   "categories": [
     "Image Tools",
     "PDF Tools",
@@ -2929,5 +2929,21 @@ window.NT_REGISTRY = {
       "premium": false,
       "keywords": "binary hex decimal"
     }
+      ,
+    {"id":"quote-maker","name":"Quote Maker","category":"Design Tools","description":"Buat gambar quote kuning-hitam.","kind":"quote-img","icon":"fa-solid fa-quote-left","popular":true,"newest":true,"premium":false,"keywords":"quote caption"},
+    {"id":"brat-text","name":"Brat Text","category":"Design Tools","description":"Tulisan besar style poster.","kind":"brat","icon":"fa-solid fa-font","popular":true,"newest":true,"premium":false,"keywords":"brat poster text"},
+    {"id":"nokia-sms","name":"Nokia Message","category":"Design Tools","description":"Tampilan SMS HP jadul.","kind":"nokia","icon":"fa-solid fa-mobile-screen","popular":true,"newest":true,"premium":false,"keywords":"nokia sms retro"},
+    {"id":"text-to-speech","name":"Text to Speech","category":"Text Tools","description":"Bacakan teks di browser.","kind":"tts","icon":"fa-solid fa-volume-high","popular":true,"newest":true,"premium":false,"keywords":"tts suara"},
+    {"id":"dice-roller","name":"Dice Roller","category":"Utility","description":"Lempar dadu 1–6.","kind":"dice","icon":"fa-solid fa-dice","popular":true,"newest":true,"premium":false,"keywords":"dadu random"},
+    {"id":"coin-flip","name":"Coin Flip","category":"Utility","description":"Lempar koin.","kind":"coin","icon":"fa-solid fa-coins","popular":true,"newest":true,"premium":false,"keywords":"koin"},
+    {"id":"random-pick","name":"Random Picker","category":"Utility","description":"Pilih acak dari daftar.","kind":"pick","icon":"fa-solid fa-shuffle","popular":false,"newest":true,"premium":false,"keywords":"acak undian"},
+    {"id":"daily-assistant","name":"Asisten Harian","category":"AI Tools","description":"Tanya jam, hitung, caption, resep.","kind":"ai","icon":"fa-solid fa-comments","popular":true,"newest":true,"premium":false,"keywords":"ai tanya harian"},
+    {"id":"ig-caption","name":"Caption Maker","category":"Social Media Tools","description":"Ide caption singkat.","kind":"ai","icon":"fa-brands fa-instagram","popular":true,"newest":true,"premium":false,"keywords":"caption ig"},
+    {"id":"wa-status","name":"Status WA Maker","category":"Social Media Tools","description":"Ide status WhatsApp.","kind":"ai","icon":"fa-brands fa-whatsapp","popular":true,"newest":true,"premium":false,"keywords":"status wa"},
+    {"id":"color-poster","name":"Color Poster","category":"Design Tools","description":"Poster warna dari teks.","kind":"poster-color","icon":"fa-solid fa-palette","popular":false,"newest":true,"premium":false,"keywords":"poster"},
+    {"id":"checklist-maker","name":"Checklist Maker","category":"Productivity","description":"Buat daftar centang.","kind":"checklist","icon":"fa-solid fa-list-check","popular":false,"newest":true,"premium":false,"keywords":"todo checklist"},
+    {"id":"world-clock","name":"World Clock","category":"Date & Time","description":"Jam beberapa kota.","kind":"world-clock","icon":"fa-solid fa-earth-asia","popular":false,"newest":true,"premium":false,"keywords":"jam dunia wib"},
+    {"id":"percent-calc","name":"Percent Calculator","category":"Calculator","description":"Hitung persen dan diskon.","kind":"percent","icon":"fa-solid fa-percent","popular":true,"newest":true,"premium":false,"keywords":"diskon persen"},
+    {"id":"ip-lookup","name":"IP Lookup","category":"Developer Tools","description":"Cek negara dari IP publik.","kind":"ip-lookup","icon":"fa-solid fa-network-wired","popular":false,"newest":true,"premium":false,"keywords":"ip negara"}
   ]
 };

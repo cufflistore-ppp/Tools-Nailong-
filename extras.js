@@ -134,6 +134,104 @@
           document.getElementById("out").textContent = s;
         });
       }
+
+      if (t.kind === "quote-img" || t.kind === "brat" || t.kind === "nokia" || t.kind === "poster-color") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          const v = (document.getElementById("inp")||{}).value || "NAILONG TOOLS";
+          const c = document.createElement("canvas");
+          c.width = 900; c.height = 600;
+          const x = c.getContext("2d");
+          if (t.kind === "brat") {
+            x.fillStyle = "#8aff00"; x.fillRect(0,0,900,600);
+            x.fillStyle = "#111"; x.font = "700 64px Arial";
+            wrap(x, v, 60, 160, 780, 72);
+          } else if (t.kind === "nokia") {
+            x.fillStyle = "#9bbb3c"; x.fillRect(0,0,900,600);
+            x.fillStyle = "#1c2a0c"; x.fillRect(80,70,740,460);
+            x.fillStyle = "#c6e37a"; x.font = "28px monospace";
+            x.fillText("Pesan baru", 110, 130);
+            wrap(x, v, 110, 190, 680, 36);
+          } else {
+            x.fillStyle = "#0b0b0c"; x.fillRect(0,0,900,600);
+            x.fillStyle = "#ffd000"; x.font = "700 48px Arial";
+            wrap(x, '"'+v+'"', 70, 180, 760, 58);
+            x.fillStyle = "#ff7a18"; x.font = "20px Arial";
+            x.fillText("NAILONG TOOLS", 70, 540);
+          }
+          const img = document.createElement("img");
+          img.src = c.toDataURL("image/png");
+          img.className = "preview-img";
+          const out = document.getElementById("out");
+          if (out) { out.innerHTML = ""; out.appendChild(img); }
+        });
+      }
+      if (t.kind === "tts") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          const v = (document.getElementById("inp")||{}).value || "";
+          const u = new SpeechSynthesisUtterance(v);
+          u.lang = "id-ID";
+          speechSynthesis.cancel();
+          speechSynthesis.speak(u);
+          document.getElementById("out").textContent = "Membacakan teks...";
+        });
+      }
+      if (t.kind === "dice") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          document.getElementById("out").textContent = "Dadu: " + (1+Math.floor(Math.random()*6));
+        });
+      }
+      if (t.kind === "coin") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          document.getElementById("out").textContent = Math.random()<.5 ? "Angka" : "Gambar";
+        });
+      }
+      if (t.kind === "pick") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          const list = ((document.getElementById("inp")||{}).value||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
+          document.getElementById("out").textContent = list.length ? list[Math.floor(Math.random()*list.length)] : "Isi daftar dulu, satu baris satu item.";
+        });
+      }
+      if (t.kind === "checklist") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          const list = ((document.getElementById("inp")||{}).value||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
+          document.getElementById("out").innerHTML = list.map(s=>"<div>☐ "+s+"</div>").join("") || "Tulis item, satu baris satu tugas.";
+        });
+      }
+      if (t.kind === "world-clock") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          const z = [["WIB","Asia/Jakarta"],["WITA","Asia/Makassar"],["WIT","Asia/Jayapura"],["UTC","UTC"],["London","Europe/London"],["Tokyo","Asia/Tokyo"]];
+          document.getElementById("out").textContent = z.map(([n,tz])=>n+": "+new Date().toLocaleString("id-ID",{timeZone:tz,hour:"2-digit",minute:"2-digit",second:"2-digit"})).join("\n");
+        });
+      }
+      if (t.kind === "percent") {
+        document.getElementById("run")?.addEventListener("click", () => {
+          const v = (document.getElementById("inp")||{}).value || "";
+          const m = v.match(/([\d.,]+)\D+([\d.,]+)/);
+          if (!m) { document.getElementById("out").textContent = "Contoh: 20% dari 150000"; return; }
+          const a=+m[1].replace(",","."), b=+m[2].replace(",", ".");
+          document.getElementById("out").textContent = a+"% dari "+b+" = "+(b*a/100);
+        });
+      }
+      if (t.kind === "ip-lookup") {
+        document.getElementById("run")?.addEventListener("click", async () => {
+          try {
+            const r = await fetch("https://ipwho.is/");
+            const j = await r.json();
+            document.getElementById("out").textContent = JSON.stringify({ip:j.ip,country:j.country,city:j.city,isp:j.connection&&j.connection.isp},null,2);
+          } catch(e) { document.getElementById("out").textContent = String(e); }
+        });
+      }
+      function wrap(x, text, x0, y0, max, lh) {
+        const words = String(text).split(/\s+/);
+        let line="", y=y0;
+        for (const w of words) {
+          const test = line ? line+" "+w : w;
+          if (x.measureText(test).width > max) { x.fillText(line, x0, y); line=w; y+=lh; }
+          else line=test;
+        }
+        if (line) x.fillText(line, x0, y);
+      }
+
     }
   };
 
