@@ -559,17 +559,25 @@
 
     if (t.kind === "ic-browser") {
       const extra = document.getElementById("extra");
-      if (extra) extra.innerHTML = `<input class="input" id="url" placeholder="https://contoh.com"><button class="btn-sm" id="goUrl" style="margin-top:8px">Buka</button><iframe class="browser-frame" id="frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>`;
+      if (extra) extra.innerHTML = `
+        <div class="uc-bar">
+          <input class="input" id="url" placeholder="Tempel URL, contoh https://www.tiktok.com">
+          <button class="btn-sm" id="goUrl" type="button">Buka</button>
+        </div>
+        <iframe class="browser-frame" id="frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>`;
       const open = () => {
-        let u = (document.getElementById("url")||document.getElementById("inp")).value.trim();
-        if (!u) return;
+        let u = ((document.getElementById("url")||document.getElementById("inp")||{}).value || "").trim();
+        const out = document.getElementById("out");
+        if (!u) { if (out) out.textContent = "Tempel URL dulu."; return; }
         if (!/^https?:\/\//i.test(u)) u = "https://" + u;
         const f = document.getElementById("frame");
         if (f) f.src = u;
+        if (out) out.textContent = "Membuka " + u;
       };
       document.getElementById("goUrl")?.addEventListener("click", open);
       document.getElementById("run")?.addEventListener("click", open);
     }
+
     if (t.kind === "url-open") {
       const extra = document.getElementById("extra");
       if (extra) extra.innerHTML = `

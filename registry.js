@@ -28,7 +28,7 @@ window.NT_REGISTRY = {
   "tools": [
   {
     "id": "image-compressor",
-    "name": "Image Compressor",
+    "name": "Kompres Gambar",
     "category": "Alat Gambar",
     "description": "Kompres gambar di browser.",
     "kind": "image-compress",
@@ -40,7 +40,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "image-resizer",
-    "name": "Image Resizer",
+    "name": "Ubah Ukuran Gambar",
     "category": "Alat Gambar",
     "description": "Ubah ukuran gambar.",
     "kind": "image-resize",
@@ -88,7 +88,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "image-converter",
-    "name": "Image Converter",
+    "name": "Ubah Format Gambar",
     "category": "Alat Gambar",
     "description": "Ubah format gambar.",
     "kind": "image-convert",
@@ -364,7 +364,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "favicon-generator",
-    "name": "Favicon Generator",
+    "name": "Pembuat Favicon",
     "category": "Alat Gambar",
     "description": "Buat ikon kecil dari gambar.",
     "kind": "image-favicon",
@@ -472,7 +472,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "images-to-pdf",
-    "name": "Images to PDF",
+    "name": "Gambar ke PDF",
     "category": "Alat PDF",
     "description": "Gabung gambar menjadi PDF.",
     "kind": "images-pdf",
@@ -604,7 +604,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "word-counter",
-    "name": "Word Counter",
+    "name": "Hitung Kata",
     "category": "Alat Teks",
     "description": "Hitung kata dan karakter.",
     "kind": "text-stats",
@@ -1048,7 +1048,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "json-formatter",
-    "name": "JSON Formatter",
+    "name": "Rapikan JSON",
     "category": "Alat Pengembang",
     "description": "Rapikan JSON.",
     "kind": "json-pretty",
@@ -1168,7 +1168,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "regex-tester",
-    "name": "Regex Tester",
+    "name": "Uji Regex",
     "category": "Alat Pengembang",
     "description": "Uji pola regex.",
     "kind": "regex",
@@ -1216,7 +1216,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "uuid-generator",
-    "name": "UUID Generator",
+    "name": "Pembuat UUID",
     "category": "Alat Pengembang",
     "description": "Buat UUID.",
     "kind": "uuid",
@@ -1480,7 +1480,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "password-generator",
-    "name": "Password Generator",
+    "name": "Pembuat Password",
     "category": "Keamanan & Generator",
     "description": "Buat kata sandi acak.",
     "kind": "password",
@@ -1588,7 +1588,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "basic-calculator",
-    "name": "Basic Calculator",
+    "name": "Kalkulator",
     "category": "Kalkulator",
     "description": "Kalkulator hitung biasa.",
     "kind": "calc-basic",
@@ -1612,7 +1612,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "percentage-calculator",
-    "name": "Percentage Calculator",
+    "name": "Kalkulator Persen",
     "category": "Kalkulator",
     "description": "Hitung persentase.",
     "kind": "calc-pct",
@@ -1684,7 +1684,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "age-calculator",
-    "name": "Age Calculator",
+    "name": "Hitung Umur",
     "category": "Kalkulator",
     "description": "Hitung umur dari tanggal lahir.",
     "kind": "calc-age",
@@ -1828,7 +1828,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "invoice-generator",
-    "name": "Invoice Generator",
+    "name": "Pembuat Invoice",
     "category": "Alat Bisnis",
     "description": "Buat invoice sederhana.",
     "kind": "invoice",
@@ -2248,7 +2248,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "world-clock",
-    "name": "World Clock",
+    "name": "Jam Dunia",
     "category": "Tanggal & Waktu",
     "description": "Jam beberapa kota.",
     "kind": "worldclock",
@@ -2512,7 +2512,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "pomodoro-timer",
-    "name": "Pomodoro Timer",
+    "name": "Timer Pomodoro",
     "category": "Edukasi",
     "description": "Timer fokus Pomodoro.",
     "kind": "pomodoro",
@@ -2572,7 +2572,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "random-picker",
-    "name": "Random Picker",
+    "name": "Pilih Acak",
     "category": "Produktivitas",
     "description": "Pemilih warna.",
     "kind": "picker",
@@ -2668,7 +2668,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "ai-summarizer",
-    "name": "AI Summarizer",
+    "name": "AI Ringkas",
     "category": "Alat AI",
     "description": "Tanya jawab harian di perangkat ini, tanpa API.",
     "kind": "ai",
@@ -2680,7 +2680,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "ai-rewriter",
-    "name": "AI Rewriter",
+    "name": "AI Tulis Ulang",
     "category": "Alat AI",
     "description": "Tanya jawab harian di perangkat ini, tanpa API.",
     "kind": "ai",
@@ -2692,7 +2692,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "ai-translator",
-    "name": "AI Translator",
+    "name": "AI Terjemah",
     "category": "Alat AI",
     "description": "Tanya jawab harian di perangkat ini, tanpa API.",
     "kind": "ai",
@@ -2932,7 +2932,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "quote-maker",
-    "name": "Quote Maker",
+    "name": "Pembuat Kutipan",
     "category": "Alat Desain",
     "description": "Buat gambar kutipan.",
     "kind": "quote-img",
@@ -2944,7 +2944,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "brat-text",
-    "name": "Brat Text",
+    "name": "Teks Brat",
     "category": "Alat Desain",
     "description": "Buat gambar atau GIF tulisan style Brat.",
     "kind": "brat",
@@ -2968,7 +2968,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "text-to-speech",
-    "name": "Text to Speech",
+    "name": "Teks ke Suara",
     "category": "Alat Teks",
     "description": "Ubah teks menjadi suara.",
     "kind": "tts",
@@ -2980,7 +2980,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "dice-roller",
-    "name": "Dice Roller",
+    "name": "Lempar Dadu",
     "category": "Utilitas",
     "description": "Lempar dadu.",
     "kind": "dice",
@@ -2992,7 +2992,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "coin-flip",
-    "name": "Coin Flip",
+    "name": "Lempar Koin",
     "category": "Utilitas",
     "description": "Lempar koin.",
     "kind": "coin",
@@ -3052,7 +3052,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "color-poster",
-    "name": "Color Poster",
+    "name": "Poster Warna",
     "category": "Alat Desain",
     "description": "Poster tulisan berwarna.",
     "kind": "poster-color",
@@ -3064,7 +3064,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "checklist-maker",
-    "name": "Checklist Maker",
+    "name": "Daftar Centang",
     "category": "Produktivitas",
     "description": "Buat daftar centang.",
     "kind": "checklist",
@@ -3076,7 +3076,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "world-clock",
-    "name": "World Clock",
+    "name": "Jam Dunia",
     "category": "Tanggal & Waktu",
     "description": "Jam dunia.",
     "kind": "world-clock",
@@ -3100,7 +3100,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "ip-lookup",
-    "name": "IP Lookup",
+    "name": "Cek IP",
     "category": "Alat Pengembang",
     "description": "Cek info IP atau domain.",
     "kind": "ip-lookup",
@@ -3208,19 +3208,19 @@ window.NT_REGISTRY = {
   },
   {
     "id": "ic-browser",
-    "name": "IC Browser",
+    "name": "UC Browser",
     "category": "Alat Web",
-    "description": "Buka halaman lewat tautan di dalam tools.",
+    "description": "Buka tautan di dalam tools, seperti browser kecil.",
     "kind": "ic-browser",
     "icon": "fa-solid fa-globe",
     "popular": true,
     "newest": true,
     "premium": false,
-    "keywords": "browser web ic"
+    "keywords": "uc browser ic browser web buka situs"
   },
   {
     "id": "yt-link",
-    "name": "YouTube Link",
+    "name": "YouTube",
     "category": "Media Sosial",
     "description": "Tempel tautan YouTube resmi. Dibuka di YouTube, bukan pengunduh video.",
     "kind": "url-open",
@@ -3232,7 +3232,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "ig-link",
-    "name": "Instagram Link",
+    "name": "Instagram",
     "category": "Media Sosial",
     "description": "Tempel tautan Instagram resmi. Dibuka di Instagram.",
     "kind": "url-open",
@@ -3244,7 +3244,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "tt-link",
-    "name": "TikTok Link",
+    "name": "TikTok",
     "category": "Media Sosial",
     "description": "Tempel tautan TikTok resmi. Dibuka di TikTok.",
     "kind": "url-open",
@@ -3256,7 +3256,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "spotify-link",
-    "name": "Spotify Link",
+    "name": "Spotify",
     "category": "Media Sosial",
     "description": "Tempel tautan Spotify resmi. Dibuka di Spotify.",
     "kind": "url-open",
@@ -3268,7 +3268,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "terabox-link",
-    "name": "Terabox Link",
+    "name": "Terabox",
     "category": "Alat Berkas",
     "description": "Tempel tautan Terabox resmi. Dibuka di Terabox.",
     "kind": "url-open",
@@ -3424,7 +3424,7 @@ window.NT_REGISTRY = {
   },
   {
     "id": "direct-file-dl",
-    "name": "Direct File Download",
+    "name": "Unduh File Langsung",
     "category": "Alat Berkas",
     "description": "Unduh jika tautan langsung ke berkas (.mp4, .mp3, .zip, .pdf).",
     "kind": "url-open",
@@ -3433,6 +3433,18 @@ window.NT_REGISTRY = {
     "newest": true,
     "premium": false,
     "keywords": "download url file"
+  },
+  {
+    "id": "uc-browser",
+    "name": "UC Browser",
+    "category": "Alat Web",
+    "description": "Tempel tautan, buka halaman di dalam tools.",
+    "kind": "ic-browser",
+    "icon": "fa-solid fa-globe",
+    "popular": true,
+    "newest": true,
+    "premium": false,
+    "keywords": "uc browser browser web url"
   }
 ]
 };

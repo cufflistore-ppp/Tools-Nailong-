@@ -366,3 +366,7 @@ footer.site .fgrid{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:8px}
 .url-prev{margin-top:12px}
 .url-frame,.url-media{width:100%;min-height:280px;border:0;border-radius:14px;background:#000;display:block}
 .url-media{height:auto;max-height:420px}
+
+.uc-bar{display:flex;gap:8px;align-items:center;margin:8px 0}
+.uc-bar .input{flex:1}
+.browser-frame{width:100%;height:min(70vh,560px);border:0;border-radius:14px;background:#0b0b0c;margin-top:10px}
