@@ -353,3 +353,16 @@ footer.site .fgrid{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:8px}
 .status-photo{width:56px;height:72px;border-radius:0;object-fit:contain;border:0;background:transparent;display:block}
 .status-ids{font-size:12px;line-height:1.55;color:#ddd}
 .status-ids b{color:#ffd000;margin-right:6px}
+
+.status-ava{display:none}
+.status-ava-photo{width:48px;height:62px;border-radius:0;object-fit:contain;background:transparent;flex-shrink:0}
+.banner .caption img,.banner .logo-img{display:none !important}
+.caption.only-title{justify-content:flex-start}
+
+.tool-hero{position:relative;padding:22px 18px 18px;margin:10px 0 14px;overflow:hidden}
+.tool-hero h2{margin:6px 0 8px;font-size:clamp(28px,6vw,44px)}
+.tool-hero-ico{position:absolute;right:16px;top:16px;width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:rgba(255,208,0,.12);color:#ffd000;font-size:22px}
+
+.url-prev{margin-top:12px}
+.url-frame,.url-media{width:100%;min-height:280px;border:0;border-radius:14px;background:#000;display:block}
+.url-media{height:auto;max-height:420px}

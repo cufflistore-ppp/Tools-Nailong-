@@ -244,6 +244,27 @@
             for (let p=0,q=0;p<data.length;p+=4,q++) idx[q] = data[p] < 200 ? 1 : 0;
             frames.push(idx);
           }
+          const finish = (url) => {
+            drawBrat(x, text, c.width, c.height, 0);
+            const a = document.getElementById("bratDl");
+            a.href = url; a.download = "brat.gif";
+            const img = document.createElement("img");
+            img.src = url; img.className = "preview-img";
+            if (out) { out.innerHTML = ""; out.appendChild(img); const p=document.createElement("p"); p.textContent="GIF siap. Klik Unduh."; out.appendChild(p); }
+          };
+          if (window.gifshot) {
+            const imgs=[];
+            for (let i=0;i<8;i++){
+              const f=document.createElement("canvas"); f.width=360; f.height=360;
+              drawBrat(f.getContext("2d"), text, 360, 360, Math.sin(i/2)*10);
+              imgs.push(f.toDataURL("image/png"));
+            }
+            gifshot.createGIF({images:imgs,gifWidth:360,gifHeight:360,interval:0.08,numFrames:8}, function(obj){
+              if(!obj.error) finish(obj.image);
+              else finish(URL.createObjectURL(framesToGif(frames, fw, fh, 8)));
+            });
+            return;
+          }
           const blob = framesToGif(frames, fw, fh, 8);
           const url = URL.createObjectURL(blob);
           drawBrat(x, text, c.width, c.height, 0);
@@ -550,29 +571,61 @@
       document.getElementById("run")?.addEventListener("click", open);
     }
     if (t.kind === "url-open") {
-      document.getElementById("run")?.addEventListener("click", () => {
-        let u = (document.getElementById("inp")||{}).value.trim();
+      const extra = document.getElementById("extra");
+      if (extra) extra.innerHTML = `
+        <p class="sub">Tempel tautan, lalu proses. Video resmi muncul di sini. Unduh hanya jika tautannya file langsung.</p>
+        <div id="urlPrev" class="url-prev"></div>`;
+      const inp = document.getElementById("inp");
+      if (inp && !inp.placeholder) inp.placeholder = "https://...";
+      const show = (html) => {
+        const box = document.getElementById("urlPrev");
+        if (box) box.innerHTML = html;
         const out = document.getElementById("out");
-        if (!u) { if (out) out.textContent = "Tempel URL dulu."; return; }
+        if (out) out.textContent = "";
+      };
+      const run = () => {
+        let u = ((document.getElementById("inp")||{}).value || "").trim();
+        if (!u) { show("<p class='sub'>Tempel URL dulu.</p>"); return; }
         if (!/^https?:\/\//i.test(u)) u = "https://" + u;
-        let host = "";
-        try { host = new URL(u).hostname; } catch {}
-        const blocked = /(youtube|youtu\.be|instagram|tiktok|spotify|terabox)/i.test(host+u);
-        const direct = /\.(mp4|mp3|webm|m4a|wav|jpg|jpeg|png|gif|pdf|zip|rar|7z|mkv)(\?|$)/i.test(u);
-        if (blocked && !direct) {
-          if (out) out.textContent = "Tool ini tidak bisa mengunduh video/musik dari YouTube, Instagram, TikTok, Spotify, atau Terabox.\nItu konten berhak cipta. Buka saja di aplikasi resmi.\n\nKalau URL-nya file langsung (berakhiran .mp4 / .mp3 / .zip), tempel itu.";
+        let host = "", path = "";
+        try { const x = new URL(u); host = x.hostname; path = x.pathname; } catch {}
+        const direct = /\.(mp4|webm|mov|m4v|mp3|wav|m4a|jpg|jpeg|png|gif|webp|pdf|zip|rar|7z|mkv)(\?|$)/i.test(u);
+        if (direct) {
+          const isVid = /\.(mp4|webm|mov|m4v|mkv)(\?|$)/i.test(u);
+          const isAud = /\.(mp3|wav|m4a)(\?|$)/i.test(u);
+          const isImg = /\.(jpg|jpeg|png|gif|webp)(\?|$)/i.test(u);
+          let media = "";
+          if (isVid) media = `<video class="url-media" controls src="${u}"></video>`;
+          else if (isAud) media = `<audio class="url-media" controls src="${u}"></audio>`;
+          else if (isImg) media = `<img class="preview-img" src="${u}" alt="">`;
+          show(media + `<p><a class="btn-sm" href="${u}" download target="_blank" rel="noopener">Unduh</a> <a class="btn-sm" href="${u}" target="_blank" rel="noopener">Buka</a></p>`);
           return;
         }
-        if (direct) {
-          const a = document.createElement("a");
-          a.href = u; a.download = ""; a.target = "_blank"; a.rel = "noopener";
-          a.click();
-          if (out) out.textContent = "Mengunduh file langsung (kalau server mengizinkan).";
-        } else {
-          window.open(u, "_blank", "noopener");
-          if (out) out.textContent = "URL dibuka di tab baru. Unduhan platform (YT/IG/TikTok/Spotify/Terabox) tidak disediakan.";
+        let yt = u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{6,})/i);
+        let tk = u.match(/tiktok\.com\/@[^/]+\/video\/(\d+)/i) || u.match(/tiktok\.com\/.*\/video\/(\d+)/i);
+        let ig = u.match(/instagram\.com\/(?:p|reel|reels)\/([A-Za-z0-9_-]+)/i);
+        if (yt) {
+          show(`<iframe class="url-frame" src="https://www.youtube.com/embed/${yt[1]}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe><p class="sub">Pemutar resmi YouTube. Unduh file tidak disediakan.</p>`);
+          return;
         }
-      });
+        if (tk) {
+          show(`<iframe class="url-frame" src="https://www.tiktok.com/embed/v2/${tk[1]}" allow="encrypted-media" allowfullscreen></iframe><p class="sub">Pemutar resmi TikTok. Simpan lewat aplikasi TikTok jika perlu.</p>`);
+          return;
+        }
+        if (ig) {
+          show(`<iframe class="url-frame" src="https://www.instagram.com/p/${ig[1]}/embed" allowfullscreen></iframe><p class="sub">Tampilan resmi Instagram. Simpan lewat aplikasi Instagram jika perlu.</p>`);
+          return;
+        }
+        if (/terabox|1024tera|teraboxapp/i.test(host)) {
+          show(`<p class="sub">Folder/berkas Terabox dibuka di situs resmi.</p><p><a class="btn-sm" href="${u}" target="_blank" rel="noopener">Buka di Terabox</a></p>`);
+          window.open(u, "_blank", "noopener");
+          return;
+        }
+        show(`<p class="sub">Bukan file langsung. Dibuka di tab baru.</p><p><a class="btn-sm" href="${u}" target="_blank" rel="noopener">Buka tautan</a></p>`);
+        window.open(u, "_blank", "noopener");
+      };
+      document.getElementById("run")?.addEventListener("click", run);
+    }
 
     if (t.kind === "tweet-card") {
       document.getElementById("run")?.addEventListener("click", () => {
@@ -696,8 +749,6 @@
         const img=document.createElement("img"); img.src=c.toDataURL(); img.className="preview-img";
         const out=document.getElementById("out"); if(out){out.innerHTML="";out.appendChild(img);}
       });
-    }
-
     }
     }
   };
