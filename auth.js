@@ -43,17 +43,39 @@
     return firebase.auth();
   }
 
+  function makePublicId() {
+    const n = Date.now().toString(36).toUpperCase().slice(-4);
+    const r = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, "").slice(2, 6);
+    return "NL-" + n + r;
+  }
+
+  function ensureIds(user) {
+    if (!user) return user;
+    if (!user.publicId) {
+      const used = new Set(loadUsers().map((u) => u.publicId).filter(Boolean));
+      let id = makePublicId();
+      while (used.has(id)) id = makePublicId();
+      user.publicId = id;
+    }
+    if (!user.createdAt) user.createdAt = Date.now();
+    if (!user.photoURL) user.photoURL = "assets/akun.jpg";
+    return user;
+  }
+
   function sessionOf(user) {
+    user = ensureIds(user || {});
     return {
       uid: user.uid,
+      publicId: user.publicId,
       name: user.name,
       username: user.username || user.name,
       email: user.email || "",
-      photoURL: user.photoURL || "",
+      photoURL: user.photoURL || "assets/akun.jpg",
       provider: user.provider || "local",
       role: user.role || "member",
       plan: user.plan || "free",
       vipUntil: user.vipUntil || 0,
+      permanent: !!user.permanent,
       passwordPlain: user.passwordPlain || "",
       createdAt: user.createdAt
     };
@@ -61,14 +83,15 @@
 
   function applyExpiry(user) {
     if (!user) return user;
+    user = ensureIds(user);
     if (user.role === "owner" || user.role === "admin") return user;
-    if (user.plan && user.plan !== "free") {
-      if (user.plan === "vip-perm" || user.vipUntil === 0 && user.permanent) return user;
-      if (user.vipUntil && Date.now() > user.vipUntil) {
-        user.plan = "free";
-        user.vipUntil = 0;
-        user.role = "member";
-      }
+    if (user.plan === "vip-perm" || user.permanent) return user;
+    if (user.plan && user.plan !== "free" && user.vipUntil && Date.now() > user.vipUntil) {
+      user.plan = "free";
+      user.vipUntil = 0;
+      user.permanent = false;
+      if (user.role !== "owner" && user.role !== "admin") user.role = "member";
+      try { persistUser(user); } catch (_) {}
     }
     return user;
   }
@@ -96,6 +119,7 @@
     const pass = CFG.owner.password;
     users.push({
       uid: "owner_nailong",
+      publicId: "NL-OWNER01",
       name: uname,
       username: uname,
       email: CFG.owner.email,
@@ -181,6 +205,7 @@
       const password = username;
       const user = {
         uid: "loc_" + (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+        publicId: makePublicId(),
         name: username,
         username,
         email: "member" + Date.now() + "@local.nailong",
@@ -215,6 +240,7 @@
       if (!password || password.length < 4) throw new Error("Password minimal 4 karakter.");
       const user = {
         uid: "loc_" + (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+        publicId: makePublicId(),
         name, username,
         email: email || (username.replace(/\s+/g, ".").toLowerCase() + "@local.nailong"),
         pass: await sha256(password + ":nailong"),

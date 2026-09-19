@@ -22,7 +22,8 @@ window.NT_REGISTRY = {
     "Education",
     "Productivity",
     "Utility",
-    "AI Tools"
+    "AI Tools",
+    "VIP Tools"
   ],
   "tools": [
     {
@@ -2946,13 +2947,33 @@ window.NT_REGISTRY = {
     {"id":"percent-calc","name":"Percent Calculator","category":"Calculator","description":"Hitung persen dan diskon.","kind":"percent","icon":"fa-solid fa-percent","popular":true,"newest":true,"premium":false,"keywords":"diskon persen"},
     {"id":"ip-lookup","name":"IP Lookup","category":"Developer Tools","description":"Cek negara dari IP publik.","kind":"ip-lookup","icon":"fa-solid fa-network-wired","popular":false,"newest":true,"premium":false,"keywords":"ip negara"}
       ,
-    {"id":"brat-generator","name":"Brat Generator","category":"Design Tools","description":"Buat poster tulisan besar style Brat.","kind":"brat","icon":"fa-solid fa-font","popular":true,"newest":true,"premium":false,"keywords":"brat poster"},
-    {"id":"iqc-generator","name":"IQC Generator","category":"Design Tools","description":"Buat kartu foto + nama + quote.","kind":"iqc","icon":"fa-solid fa-id-card","popular":true,"newest":true,"premium":false,"keywords":"iqc kartu"},
+    {"id":"brat-generator","name":"Brat Generator","category":"Design Tools","description":"Static PNG atau preview animasi style BRAT.","kind":"brat","icon":"fa-solid fa-font","popular":true,"newest":true,"premium":false,"keywords":"brat poster"},
+    {"id":"iqc-generator","name":"IQC Generator","category":"Design Tools","description":"Gambar IQC: pesan, operator, jam, baterai.","kind":"iqc","icon":"fa-solid fa-id-card","popular":true,"newest":true,"premium":false,"keywords":"iqc kartu"},
     {"id":"sertifikat-kocak","name":"Sertifikat Tolol","category":"Design Tools","description":"Sertifikat iseng dari nama, untuk guyonan.","kind":"sertifikat","icon":"fa-solid fa-award","popular":true,"newest":true,"premium":false,"keywords":"sertifikat tolol meme"},
     {"id":"fake-dev","name":"FakeDev Card","category":"Design Tools","description":"Kartu profil developer iseng dari nama dan bio.","kind":"fakedev","icon":"fa-solid fa-user-gear","popular":true,"newest":true,"premium":false,"keywords":"dev profile"},
     {"id":"fake-lobby","name":"Kartu Lobby Game","category":"Design Tools","description":"Kartu iseng FF/ML/PUBG/FC. Bukan lobby asli.","kind":"lobby","icon":"fa-solid fa-gamepad","popular":true,"newest":true,"premium":false,"keywords":"lobby ff ml pubg"},
     {"id":"tanya-ustadz","name":"Tanya Pak Ustadz","category":"Utility","description":"Jawaban singkat iseng untuk pertanyaan harian.","kind":"ustadz","icon":"fa-solid fa-comments","popular":true,"newest":true,"premium":false,"keywords":"tanya ustadz meme"},
     {"id":"virus-scan","name":"Cek Tautan / File","category":"Security & Generator","description":"Cek dasar URL, domain, file, hash, atau IP. Bukan antivirus penuh.","kind":"virus-scan","icon":"fa-solid fa-shield-halved","popular":true,"newest":true,"premium":false,"keywords":"virus scan url hash ip"},
-    {"id":"remove-bg","name":"Hapus Background","category":"Image Tools","description":"Hapus background polos pada foto (warna sudut).","kind":"remove-bg","icon":"fa-solid fa-eraser","popular":true,"newest":true,"premium":false,"keywords":"hapus background"}
+    {"id":"remove-bg","name":"Hapus Background","category":"Image Tools","description":"Hapus background polos pada foto (warna sudut).","kind":"remove-bg","icon":"fa-solid fa-eraser","popular":true,"newest":true,"premium":false,"keywords":"hapus background"},
+    {"id":"ic-browser","name":"IC Browser","category":"Web Tools","description":"Buka situs di dalam tools.","kind":"ic-browser","icon":"fa-solid fa-globe","popular":true,"newest":true,"premium":false,"keywords":"browser web ic"},
+    {"id":"yt-link","name":"YouTube Link","category":"Social Media Tools","description":"Buka tautan YouTube di tab resmi. Bukan pengunduh video.","kind":"url-open","icon":"fa-brands fa-youtube","popular":true,"newest":true,"premium":false,"keywords":"youtube url"},
+    {"id":"ig-link","name":"Instagram Link","category":"Social Media Tools","description":"Buka tautan Instagram di tab resmi. Bukan pengunduh video.","kind":"url-open","icon":"fa-brands fa-instagram","popular":true,"newest":true,"premium":false,"keywords":"instagram url"},
+    {"id":"tt-link","name":"TikTok Link","category":"Social Media Tools","description":"Buka tautan TikTok di tab resmi. Bukan pengunduh video.","kind":"url-open","icon":"fa-brands fa-tiktok","popular":true,"newest":true,"premium":false,"keywords":"tiktok url"},
+    {"id":"spotify-link","name":"Spotify Link","category":"Social Media Tools","description":"Buka tautan Spotify di aplikasi resmi. Bukan pengunduh lagu.","kind":"url-open","icon":"fa-brands fa-spotify","popular":true,"newest":true,"premium":false,"keywords":"spotify url"},
+    {"id":"terabox-link","name":"Terabox Link","category":"File Tools","description":"Buka tautan Terabox. Bukan bypass unduhan berbayar.","kind":"url-open","icon":"fa-solid fa-cloud-arrow-down","popular":true,"newest":true,"premium":false,"keywords":"terabox url"},
+    
+    {"id":"fake-tweet","name":"Fake Tweet","category":"VIP Tools","description":"Kartu tweet iseng. Bukan Twitter asli.","kind":"tweet-card","icon":"fa-brands fa-x-twitter","popular":true,"newest":true,"premium":true,"keywords":"tweet palsu parody"},
+    {"id":"web-obfuscate","name":"Web Encryption","category":"VIP Tools","description":"Samarkan teks/HTML sederhana di browser.","kind":"obfuscate","icon":"fa-solid fa-lock","popular":true,"newest":true,"premium":true,"keywords":"encrypt obfuscate html"},
+    {"id":"ss-web","name":"Screenshot Web","category":"VIP Tools","description":"Pratinjau screenshot situs dari URL.","kind":"ss-web","icon":"fa-solid fa-camera","popular":true,"newest":true,"premium":true,"keywords":"screenshot web ssweb"},
+    {"id":"ml-winrate","name":"ML Winrate","category":"VIP Tools","description":"Hitung winrate Mobile Legends dari match.","kind":"ml-winrate","icon":"fa-solid fa-gamepad","popular":true,"newest":true,"premium":true,"keywords":"ml winrate kalkulator"},
+    {"id":"prompt-pack","name":"Prompt Pack","category":"VIP Tools","description":"Paket prompt menulis, belajar, kerja. Bukan jailbreak.","kind":"prompt-pack","icon":"fa-solid fa-lightbulb","popular":true,"newest":true,"premium":true,"keywords":"prompt ai pack"},
+    {"id":"image-pro","name":"Image Compressor Pro","category":"VIP Tools","description":"Kompres gambar plus pilih kualitas dan format.","kind":"image-compress","icon":"fa-solid fa-compress","popular":true,"newest":true,"premium":true,"keywords":"compress pro"},
+    {"id":"domain-pro","name":"IP / Domain Lookup Pro","category":"VIP Tools","description":"Cek IP publik dan domain lebih lengkap.","kind":"ip-lookup","icon":"fa-solid fa-network-wired","popular":false,"newest":true,"premium":true,"keywords":"ip domain lookup"},
+    {"id":"meta-gen","name":"Meta Tag Generator","category":"VIP Tools","description":"Buat meta title, description, OG.","kind":"meta-gen","icon":"fa-solid fa-code","popular":false,"newest":true,"premium":true,"keywords":"seo meta og"},
+    {"id":"md-preview","name":"Markdown Preview","category":"VIP Tools","description":"Pratinjau Markdown jadi HTML.","kind":"markdown","icon":"fa-solid fa-file-lines","popular":false,"newest":true,"premium":true,"keywords":"markdown preview"},
+    {"id":"text-diff","name":"Text Diff","category":"VIP Tools","description":"Bandingkan dua teks.","kind":"diff","icon":"fa-solid fa-not-equal","popular":false,"newest":true,"premium":true,"keywords":"diff banding teks"},
+    {"id":"contrast-check","name":"Contrast Checker","category":"VIP Tools","description":"Cek kontras warna teks dan latar.","kind":"contrast","icon":"fa-solid fa-circle-half-stroke","popular":false,"newest":true,"premium":true,"keywords":"contrast aksesibilitas"},
+    {"id":"og-card","name":"OG Card Maker","category":"VIP Tools","description":"Buat kartu pratinjau tautan.","kind":"og-card","icon":"fa-solid fa-share-nodes","popular":true,"newest":true,"premium":true,"keywords":"og image card"},
+    {"id":"direct-file-dl","name":"Direct File Download","category":"File Tools","description":"Unduh file kalau URL-nya langsung ke file (.mp4 .mp3 .zip .pdf).","kind":"url-open","icon":"fa-solid fa-download","popular":true,"newest":true,"premium":false,"keywords":"download url file"}
   ]
 };

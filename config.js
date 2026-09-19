@@ -1,7 +1,7 @@
 /* NAILONG TOOLS v148.027.00 configuration */
 window.NT_CONFIG = {
   version: "148.027.00",
-  name: "𝑻𝑶𝑶𝑳𝑺 〆 𝑵𝑨𝑰𝑳𝑶𝑵𝑮",
+  name: "TOOLS 〆 NAILONG",
   firebaseEnabled: false,
   firebaseConfig: {
     apiKey: "YOUR_API_KEY",

@@ -135,16 +135,184 @@
         });
       }
 
-      if (t.kind === "quote-img" || t.kind === "brat" || t.kind === "nokia" || t.kind === "poster-color") {
+      if (t.kind === "brat") {
+        const extra = document.getElementById("extra");
+        if (extra) extra.innerHTML = `
+          <p class="sub">PNG statis atau GIF animasi (latar putih).</p>
+          <div style="display:flex;gap:8px;margin:8px 0">
+            <button class="btn-sm" id="bratStatic" type="button">Static</button>
+            <button class="btn-sm" id="bratGif" type="button" style="background:#222;color:#fff">GIF</button>
+          </div>
+          <canvas id="bratCv" width="540" height="540" style="width:100%;max-width:360px;border-radius:12px;background:#fff"></canvas>
+          <div style="margin-top:8px"><a id="bratDl" class="btn-sm" download="brat.png">Unduh</a></div>`;
+        let mode = "static";
+        let anim;
+        const drawBrat = (ctx, text, w, h, jitter) => {
+          ctx.fillStyle = "#ffffff"; ctx.fillRect(0,0,w,h);
+          ctx.fillStyle = "#111";
+          ctx.font = "italic " + Math.round(w*0.085) + "px Arial Narrow, Arial, sans-serif";
+          ctx.filter = "blur(0.5px)";
+          const words = String(text||"brat").toLowerCase().split(/\s+/);
+          let line="", y = h*0.22 + (jitter||0), x0 = w*0.07, max = w*0.86, lh = w*0.1;
+          const flush = () => { if (line) { ctx.fillText(line, x0, y); y += lh; line=""; } };
+          for (const word of words) {
+            const test = line ? line+" "+word : word;
+            if (ctx.measureText(test).width > max) { flush(); line = word; } else line = test;
+          }
+          flush();
+          ctx.filter = "none";
+        };
+        const showPng = () => {
+          const text = (document.getElementById("inp")||{}).value || "brat";
+          const c = document.getElementById("bratCv");
+          const x = c.getContext("2d");
+          drawBrat(x, text, c.width, c.height, 0);
+          const big = document.createElement("canvas"); big.width=1080; big.height=1080;
+          drawBrat(big.getContext("2d"), text, 1080, 1080, 0);
+          const a = document.getElementById("bratDl");
+          a.href = big.toDataURL("image/png"); a.download = "brat.png";
+          const out = document.getElementById("out");
+          if (out) out.textContent = "BRAT static siap diunduh.";
+        };
+        const lzwGif = (indexed, minCode) => {
+          const clear = 1 << minCode, eoi = clear + 1;
+          let codeSize = minCode + 1, next = eoi + 1;
+          const dict = new Map();
+          const out = [];
+          let acc = 0, bits = 0;
+          const emit = (code) => {
+            acc |= code << bits; bits += codeSize;
+            while (bits >= 8) { out.push(acc & 255); acc >>= 8; bits -= 8; }
+          };
+          const reset = () => { dict.clear(); codeSize = minCode + 1; next = eoi + 1; };
+          const keyOf = (arr) => arr.join(",");
+          emit(clear);
+          let w = [indexed[0]];
+          for (let i = 1; i < indexed.length; i++) {
+            const wk = w.concat(indexed[i]);
+            if (dict.has(keyOf(wk))) w = wk;
+            else {
+              emit(w.length === 1 ? w[0] : dict.get(keyOf(w)));
+              if (next < 4096) {
+                dict.set(keyOf(wk), next);
+                if (next === (1 << codeSize) && codeSize < 12) codeSize++;
+                next++;
+              } else { emit(clear); reset(); }
+              w = [indexed[i]];
+            }
+          }
+          emit(w.length === 1 ? w[0] : dict.get(keyOf(w)));
+          emit(eoi);
+          if (bits) out.push(acc & 255);
+          return out;
+        };
+        const framesToGif = (frames, w, h, delay) => {
+          const b = [];
+          const put = (...n) => n.forEach((v) => b.push(v & 255));
+          const str = (s) => { for (let i=0;i<s.length;i++) put(s.charCodeAt(i)); };
+          str("GIF89a");
+          put(w, w>>8, h, h>>8, 0x81, 0, 0, 255,255,255, 17,17,17, 0,0,0, 0,0,0);
+          put(0x21,0xff,0x0b); str("NETSCAPE2.0"); put(3,1,0,0,0);
+          frames.forEach((px) => {
+            put(0x21,0xf9,4,4, delay, delay>>8, 0, 0);
+            put(0x2c,0,0,0,0, w, w>>8, h, h>>8, 0, 2);
+            const comp = lzwGif(px, 2);
+            for (let i=0;i<comp.length;i+=255) {
+              const n = Math.min(255, comp.length-i);
+              put(n);
+              for (let j=0;j<n;j++) put(comp[i+j]);
+            }
+            put(0);
+          });
+          put(0x3b);
+          return new Blob([new Uint8Array(b)], {type:"image/gif"});
+        };
+        const showAnim = () => {
+          const text = (document.getElementById("inp")||{}).value || "brat";
+          const c = document.getElementById("bratCv");
+          const x = c.getContext("2d");
+          const out = document.getElementById("out");
+          if (out) out.textContent = "Membuat GIF...";
+          const fw = 360, fh = 360;
+          const tmp = document.createElement("canvas"); tmp.width = fw; tmp.height = fh;
+          const tx = tmp.getContext("2d", {willReadFrequently:true});
+          const frames = [];
+          for (let i=0;i<12;i++) {
+            drawBrat(tx, text, fw, fh, Math.sin(i/2)*10);
+            const data = tx.getImageData(0,0,fw,fh).data;
+            const idx = new Array(fw*fh);
+            for (let p=0,q=0;p<data.length;p+=4,q++) idx[q] = data[p] < 200 ? 1 : 0;
+            frames.push(idx);
+          }
+          const blob = framesToGif(frames, fw, fh, 8);
+          const url = URL.createObjectURL(blob);
+          drawBrat(x, text, c.width, c.height, 0);
+          const a = document.getElementById("bratDl");
+          a.href = url; a.download = "brat.gif";
+          const img = document.createElement("img");
+          img.src = url; img.className = "preview-img";
+          if (out) { out.innerHTML = ""; out.appendChild(img); const p=document.createElement("p"); p.textContent="GIF siap. Klik Unduh."; out.appendChild(p); }
+        };
+        document.getElementById("bratStatic")?.addEventListener("click", () => { mode="static"; cancelAnimationFrame(anim); showPng(); });
+        document.getElementById("bratGif")?.addEventListener("click", () => { mode="gif"; showAnim(); });
+        document.getElementById("run")?.addEventListener("click", () => { mode==="gif" ? showAnim() : showPng(); });
+        showPng();
+      }
+
+      if (t.kind === "iqc") {
+        const extra = document.getElementById("extra");
+        if (extra) extra.innerHTML = `
+          <label>Operator</label>
+          <select id="op" class="input">
+            <option>Axis</option><option>Telkomsel</option><option>Indosat</option>
+            <option>XL</option><option>Three</option><option>Smartfren</option>
+          </select>
+          <label>Jam</label><input class="input" id="jam" value="12:00">
+          <label>Baterai %</label><input class="input" id="bat" type="number" value="65">`;
+        document.getElementById("run")?.addEventListener("click", () => {
+          const msg = (document.getElementById("inp")||{}).value || "Hai";
+          const op = (document.getElementById("op")||{}).value || "Axis";
+          const jam = (document.getElementById("jam")||{}).value || "12:00";
+          const bat = Math.max(0, Math.min(100, Number((document.getElementById("bat")||{}).value||65)));
+          const c = document.createElement("canvas"); c.width=540; c.height=960;
+          const x = c.getContext("2d");
+          x.fillStyle = "#000"; x.fillRect(0,0,540,960);
+          x.fillStyle = "#fff"; x.font = "600 18px Arial";
+          x.fillText(op, 24, 42); x.fillText(jam, 240, 42);
+          x.fillStyle = "#3ddc84"; x.fillRect(470, 28, 46*(bat/100), 16);
+          x.strokeStyle = "#fff"; x.strokeRect(468, 26, 50, 20);
+          x.fillStyle = "#1c1c1e"; x.beginPath();
+          if (x.roundRect) x.roundRect(24, 120, 400, 90, 18); else x.rect(24,120,400,90);
+          x.fill();
+          x.fillStyle = "#fff"; x.font = "22px Arial";
+          const words = String(msg).split(/\s+/); let line="", y=155;
+          for (const w of words) {
+            const test = line?line+" "+w:w;
+            if (x.measureText(test).width > 360) { x.fillText(line, 40, y); line=w; y+=28; } else line=test;
+          }
+          if (line) x.fillText(line, 40, y);
+          const img = document.createElement("img");
+          img.src = c.toDataURL("image/png"); img.className = "preview-img";
+          const out = document.getElementById("out");
+          if (out) { out.innerHTML=""; out.appendChild(img); }
+        });
+      }
+
+      if (t.kind === "quote-img" || t.kind === "nokia" || t.kind === "poster-color") {
         document.getElementById("run")?.addEventListener("click", () => {
           const v = (document.getElementById("inp")||{}).value || "NAILONG TOOLS";
           const c = document.createElement("canvas");
           c.width = 900; c.height = 600;
           const x = c.getContext("2d");
           if (t.kind === "brat") {
-            x.fillStyle = "#8aff00"; x.fillRect(0,0,900,600);
-            x.fillStyle = "#111"; x.font = "700 64px Arial";
-            wrap(x, v, 60, 160, 780, 72);
+            c.width = 1080; c.height = 1080;
+            x.fillStyle = "#ffffff"; x.fillRect(0,0,1080,1080);
+            const words = String(v).toLowerCase();
+            x.fillStyle = "#111";
+            x.font = "italic 92px Arial Narrow, Arial, sans-serif";
+            x.filter = "blur(0.6px)";
+            wrap(x, words, 70, 220, 940, 110);
+            x.filter = "none";
           } else if (t.kind === "nokia") {
             x.fillStyle = "#9bbb3c"; x.fillRect(0,0,900,600);
             x.fillStyle = "#1c2a0c"; x.fillRect(80,70,740,460);
@@ -368,6 +536,169 @@
         if (line) x.fillText(line, x0, y);
       }
 
+    if (t.kind === "ic-browser") {
+      const extra = document.getElementById("extra");
+      if (extra) extra.innerHTML = `<input class="input" id="url" placeholder="https://contoh.com"><button class="btn-sm" id="goUrl" style="margin-top:8px">Buka</button><iframe class="browser-frame" id="frame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>`;
+      const open = () => {
+        let u = (document.getElementById("url")||document.getElementById("inp")).value.trim();
+        if (!u) return;
+        if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+        const f = document.getElementById("frame");
+        if (f) f.src = u;
+      };
+      document.getElementById("goUrl")?.addEventListener("click", open);
+      document.getElementById("run")?.addEventListener("click", open);
+    }
+    if (t.kind === "url-open") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        let u = (document.getElementById("inp")||{}).value.trim();
+        const out = document.getElementById("out");
+        if (!u) { if (out) out.textContent = "Tempel URL dulu."; return; }
+        if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+        let host = "";
+        try { host = new URL(u).hostname; } catch {}
+        const blocked = /(youtube|youtu\.be|instagram|tiktok|spotify|terabox)/i.test(host+u);
+        const direct = /\.(mp4|mp3|webm|m4a|wav|jpg|jpeg|png|gif|pdf|zip|rar|7z|mkv)(\?|$)/i.test(u);
+        if (blocked && !direct) {
+          if (out) out.textContent = "Tool ini tidak bisa mengunduh video/musik dari YouTube, Instagram, TikTok, Spotify, atau Terabox.\nItu konten berhak cipta. Buka saja di aplikasi resmi.\n\nKalau URL-nya file langsung (berakhiran .mp4 / .mp3 / .zip), tempel itu.";
+          return;
+        }
+        if (direct) {
+          const a = document.createElement("a");
+          a.href = u; a.download = ""; a.target = "_blank"; a.rel = "noopener";
+          a.click();
+          if (out) out.textContent = "Mengunduh file langsung (kalau server mengizinkan).";
+        } else {
+          window.open(u, "_blank", "noopener");
+          if (out) out.textContent = "URL dibuka di tab baru. Unduhan platform (YT/IG/TikTok/Spotify/Terabox) tidak disediakan.";
+        }
+      });
+
+    if (t.kind === "tweet-card") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        const v = (document.getElementById("inp")||{}).value || "Halo dari Nailong";
+        const c = document.createElement("canvas"); c.width=900; c.height=420;
+        const x = c.getContext("2d");
+        x.fillStyle="#000"; x.fillRect(0,0,900,420);
+        x.fillStyle="#fff"; x.font="700 28px Arial"; x.fillText("Tweet iseng", 40, 70);
+        x.font="22px Arial";
+        const words=v.split(/\s+/); let line="", y=130;
+        for (const w of words){ const test=line?line+" "+w:w; if(x.measureText(test).width>820){x.fillText(line,40,y);line=w;y+=32;} else line=test; }
+        if(line) x.fillText(line,40,y);
+        x.fillStyle="#888"; x.font="16px Arial"; x.fillText("Bukan Twitter/X resmi. Hanya kartu parody.", 40, 390);
+        const img=document.createElement("img"); img.src=c.toDataURL(); img.className="preview-img";
+        const out=document.getElementById("out"); if(out){out.innerHTML="";out.appendChild(img);}
+      });
+    }
+    if (t.kind === "obfuscate") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        const v = (document.getElementById("inp")||{}).value || "";
+        const b = btoa(unescape(encodeURIComponent(v)));
+        const out=document.getElementById("out");
+        if(out) out.textContent = "<script>document.write(decodeURIComponent(escape(atob(\""+b+"\"))))<\/script>";
+      });
+    }
+    if (t.kind === "ss-web") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        let u=(document.getElementById("inp")||{}).value.trim();
+        const out=document.getElementById("out");
+        if(!u){ if(out) out.textContent="Tempel URL."; return; }
+        if(!/^https?:\/\//i.test(u)) u="https://"+u;
+        const img=document.createElement("img");
+        img.className="preview-img";
+        img.alt="preview";
+        img.src="https://image.thum.io/get/width/800/noanimate/"+encodeURIComponent(u);
+        if(out){ out.innerHTML=""; out.appendChild(img); }
+      });
+    }
+    if (t.kind === "ml-winrate") {
+      const extra=document.getElementById("extra");
+      if(extra) extra.innerHTML=`<label>Menang</label><input class="input" id="win" type="number" value="60"><label>Kalah</label><input class="input" id="lose" type="number" value="40">`;
+      document.getElementById("run")?.addEventListener("click", () => {
+        const w=Number((document.getElementById("win")||{}).value||0);
+        const l=Number((document.getElementById("lose")||{}).value||0);
+        const t=w+l;
+        const wr=t? (w/t*100).toFixed(2):"0.00";
+        const need=Math.ceil((0.7*(t)-w)/0.3);
+        const out=document.getElementById("out");
+        if(out) out.textContent="Total "+t+" match\nWinrate "+wr+"%\nPerkiraan menang berturut agar 70%: "+(need>0?need:0);
+      });
+    }
+    if (t.kind === "prompt-pack") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        const pack=[
+          "Jelaskan topik ini dengan bahasa sederhana untuk pelajar.",
+          "Buat kerangka tugas dari ide berikut, 5 poin.",
+          "Ringkas teks ini jadi 5 kalimat.",
+          "Buat caption sopan untuk postingan ini.",
+          "Tanyakan 8 pertanyaan latihan tentang materi ini."
+        ];
+        const out=document.getElementById("out");
+        if(out) out.textContent=pack.map((s,i)=>(i+1)+". "+s).join("\n");
+      });
+    }
+    if (t.kind === "meta-gen") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        const v=(document.getElementById("inp")||{}).value || "TOOLS NAILONG";
+        const [title,...rest]=v.split("\n");
+        const desc=(rest.join(" ")||title).slice(0,160);
+        const out=document.getElementById("out");
+        if(out) out.textContent=`<title>${title}</title>\n<meta name="description" content="${desc}">\n<meta property="og:title" content="${title}">\n<meta property="og:description" content="${desc}">`;
+      });
+    }
+    if (t.kind === "markdown") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        let v=(document.getElementById("inp")||{}).value || "# Halo";
+        v=v.replace(/^### (.*)$/gm,"<h3>$1</h3>").replace(/^## (.*)$/gm,"<h2>$1</h2>").replace(/^# (.*)$/gm,"<h1>$1</h1>");
+        v=v.replace(/\*\*(.*?)\*\*/g,"<b>$1</b>").replace(/\*(.*?)\*/g,"<i>$1</i>");
+        v=v.replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\n/g,"<br>");
+        const out=document.getElementById("out");
+        if(out) out.innerHTML=v;
+      });
+    }
+    if (t.kind === "diff") {
+      const extra=document.getElementById("extra");
+      if(extra) extra.innerHTML=`<textarea class="tall" id="inp2" placeholder="Teks B"></textarea>`;
+      document.getElementById("run")?.addEventListener("click", () => {
+        const a=((document.getElementById("inp")||{}).value||"").split(/\n/);
+        const b=((document.getElementById("inp2")||{}).value||"").split(/\n/);
+        const n=Math.max(a.length,b.length);
+        const lines=[];
+        for(let i=0;i<n;i++){
+          if((a[i]||"")===(b[i]||"")) lines.push("  "+(a[i]||""));
+          else lines.push("- "+(a[i]||"(kosong)")+"\n+ "+(b[i]||"(kosong)"));
+        }
+        const out=document.getElementById("out"); if(out) out.textContent=lines.join("\n");
+      });
+    }
+    if (t.kind === "contrast") {
+      const extra=document.getElementById("extra");
+      if(extra) extra.innerHTML=`<label>Teks</label><input class="input" id="c1" value="#111111"><label>Latar</label><input class="input" id="c2" value="#ffd000">`;
+      document.getElementById("run")?.addEventListener("click", () => {
+        const hex=(s)=>{s=s.replace("#",""); if(s.length===3)s=s[0]+s[0]+s[1]+s[1]+s[2]+s[2]; const n=parseInt(s,16); return [(n>>16)&255,(n>>8)&255,n&255];};
+        const lum=(rgb)=>{const a=rgb.map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);}); return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];};
+        const L1=lum(hex((document.getElementById("c1")||{}).value||"#000"));
+        const L2=lum(hex((document.getElementById("c2")||{}).value||"#fff"));
+        const ratio=(Math.max(L1,L2)+0.05)/(Math.min(L1,L2)+0.05);
+        const out=document.getElementById("out");
+        if(out) out.textContent="Rasio "+ratio.toFixed(2)+":1\nAA teks biasa: "+(ratio>=4.5?"lulus":"kurang")+"\nAA judul: "+(ratio>=3?"lulus":"kurang");
+      });
+    }
+    if (t.kind === "og-card") {
+      document.getElementById("run")?.addEventListener("click", () => {
+        const v=(document.getElementById("inp")||{}).value || "TOOLS 〆 NAILONG";
+        const c=document.createElement("canvas"); c.width=1200; c.height=630;
+        const x=c.getContext("2d");
+        x.fillStyle="#070708"; x.fillRect(0,0,1200,630);
+        x.fillStyle="#ffd000"; x.fillRect(0,0,18,630);
+        x.fillStyle="#fff"; x.font="700 64px Arial"; x.fillText(v.slice(0,32), 60, 280);
+        x.fillStyle="#ffb000"; x.font="28px Arial"; x.fillText("NAILONG TOOLS  ·  v148.027.00", 60, 360);
+        const img=document.createElement("img"); img.src=c.toDataURL(); img.className="preview-img";
+        const out=document.getElementById("out"); if(out){out.innerHTML="";out.appendChild(img);}
+      });
+    }
+
+    }
     }
   };
 
